@@ -11,7 +11,7 @@ module.exports = ({ router, db, dto, logger }) => {
 
       logger.info({ message: "Stored or updated item", id: req.body.id });
 
-      return res.send(dto.storedData(result));
+      return res.json(dto.storedData(result));
     } catch (err) {
       logger.error({ name: err.name, message: err.message, stack: err.stack });
 
@@ -43,7 +43,7 @@ module.exports = ({ router, db, dto, logger }) => {
         });
       }
 
-      res.json(results.map(result => dto.storedData(result)));
+      return res.json(results.map(result => dto.storedData(result)));
     } catch (err) {
       logger.error({ name: err.name, message: err.message, stack: err.stack });
 
