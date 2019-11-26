@@ -1,0 +1,76 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Secure Storage Service
+  description: A simple service to securely store encrypted data
+host: localhost:3000
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /store:
+    post:
+      summary: Encrypts data with a provided key and stores it
+      parameters:
+        - in: body
+          name: data
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              encryption_key:
+                type: string
+              value:
+                type: string
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              value:
+                type: string
+        400:
+          description: Bad Request
+        500:
+          description: Internal Server Error
+  /retrieve:
+    post:
+      summary: Fetches encrypted data, uses decryption key to determine ownership
+      parameters:
+        - in: body
+          name: data
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              decryption_key:
+                type: string
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                value:
+                  type: string
+        400:
+          description: Bad Request
+        500:
+          description: Internal Server Error

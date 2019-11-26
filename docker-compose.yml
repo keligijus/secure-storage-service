@@ -1,0 +1,29 @@
+version: '3.2'
+
+services:
+  postgres:
+    image: postgres:alpine
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: secure-storage
+      POSTGRES_PASSWORD: secure-storage
+      POSTGRES_DB: secure-storage
+
+  api:
+    build:
+      context: ./api
+    depends_on:
+      - postgres
+    environment:
+      PORT: 3000
+      NODE_ENV: development
+      DB_PASSWORD: secure-storage
+      DB_USERNAME: secure-storage
+      DB_NAME: secure-storage
+      DB_HOSTNAME: postgres
+    volumes:
+      - ./api:/api
+    ports:
+      - "3000:3000"
