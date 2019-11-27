@@ -62,3 +62,6 @@ typings/
 
 # es6 transpilation
 dist
+
+# system files
+.DS_Store
