@@ -20,8 +20,8 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false,
         get() {
           const decryption_key = this.getDataValue("encryption_key");
-          const value = this.getDataValue("value");
-          const decrypted = decrypt(value, decryption_key);
+          const encryptedTextAndIv = this.getDataValue("value");
+          const decrypted = decrypt(encryptedTextAndIv, decryption_key);
           return JSON.parse(decrypted);
         },
         set(val) {
